@@ -195,6 +195,13 @@ public interface Commands {
 
     public void zcount(final String key, final String min, final String max);
 
+    public void zlexcount(final String key, final String min, final String max);
+
+    public void zrangeByLex(final String key, final String min, final String max);
+
+    public void zrangeByLex(final String key, final String min, final String max,
+        final int offset, int count);
+
     public void zrangeByScore(final String key, final double min,
 	    final double max);
 
@@ -236,6 +243,8 @@ public interface Commands {
 
     public void zrevrangeByScoreWithScores(final String key, final String max,
 	    final String min, final int offset, final int count);
+
+    public void zremrangeByLex(final String key, final String min, final String max);
 
     public void zremrangeByRank(final String key, final long start,
 	    final long end);

@@ -149,6 +149,13 @@ public interface BinaryJedisCommands {
 
     Long zcount(byte[] key, byte[] min, byte[] max);
 
+    Long zlexcount(byte[] key, byte[] min, byte[] max);
+
+    Set<byte[]> zrangeByLex(byte[] key, byte[] min, byte[] max);
+
+    Set<byte[]> zrangeByLex(byte[] key, byte[] min, byte[] max,
+        int offset, int count);
+
     Set<byte[]> zrangeByScore(byte[] key, double min, double max);
 
     Set<byte[]> zrangeByScore(byte[] key, byte[] min, byte[] max);
@@ -188,6 +195,8 @@ public interface BinaryJedisCommands {
 
     Set<Tuple> zrevrangeByScoreWithScores(byte[] key, byte[] max, byte[] min,
 	    int offset, int count);
+
+    Long zremrangeByLex(byte[] key, byte[] min, byte[] max);
 
     Long zremrangeByRank(byte[] key, long start, long end);
 

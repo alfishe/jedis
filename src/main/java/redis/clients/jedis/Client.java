@@ -439,6 +439,22 @@ public class Client extends BinaryClient implements Commands {
 		SafeEncoder.encode(max));
     }
 
+    public void zlexcount(final String key, final String min, final String max) {
+    zlexcount(SafeEncoder.encode(key), SafeEncoder.encode(min),
+        SafeEncoder.encode(max));
+    }
+
+    public void zrangeByLex(final String key, final String min, final String max) {
+    zrangeByLex(SafeEncoder.encode(key), SafeEncoder.encode(min),
+        SafeEncoder.encode(max));
+    }
+
+    public void zrangeByLex(final String key, final String min,
+        final String max, final int offset, int count) {
+    zrangeByLex(SafeEncoder.encode(key), SafeEncoder.encode(min),
+        SafeEncoder.encode(max), offset, count);
+    }
+
     public void zrangeByScore(final String key, final double min,
 	    final double max) {
 	zrangeByScore(SafeEncoder.encode(key), toByteArray(min),
@@ -533,6 +549,11 @@ public class Client extends BinaryClient implements Commands {
 	    final String min, final int offset, final int count) {
 	zrevrangeByScoreWithScores(SafeEncoder.encode(key),
 		SafeEncoder.encode(max), SafeEncoder.encode(min), offset, count);
+    }
+
+    public void zremrangeByLex(final String key, final String min,
+        final String max) {
+    zremrangeByLex(SafeEncoder.encode(key), SafeEncoder.encode(min), SafeEncoder.encode(max));
     }
 
     public void zremrangeByRank(final String key, final long start,

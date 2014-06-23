@@ -582,6 +582,33 @@ public class BinaryClient extends Connection {
 	sendCommand(ZCOUNT, key, min.getBytes(), max.getBytes());
     }
 
+    public void zlexcount(final byte[] key, final byte min[], final byte max[]) {
+        sendCommand(ZLEXCOUNT, key, min, max);
+    }
+
+    public void zlexcount(final byte[] key, final String min, final String max) {
+    sendCommand(ZLEXCOUNT, key, min.getBytes(), max.getBytes());
+    }
+
+    public void zrangeByLex(final byte[] key, final byte min[], final byte max[]) {
+        sendCommand(ZRANGEBYLEX, key, min, max);
+    }
+
+    public void zrangeByLex(final byte[] key, final String min, final String max) {
+        sendCommand(ZRANGEBYLEX, key, min.getBytes(), max.getBytes());
+    }
+
+    public void zrangeByLex(final byte[] key, final byte[] min, final byte[] max,
+        final int offset, int count) {
+        sendCommand(ZRANGEBYLEX, key, min, max, LIMIT.raw, toByteArray(offset), toByteArray(count));
+    }
+
+    public void zrangeByLex(final byte[] key, final String min, final String max,
+                            final int offset, int count) {
+        sendCommand(ZRANGEBYLEX, key, min.getBytes(), max.getBytes(),
+            LIMIT.raw, toByteArray(offset), toByteArray(count));
+    }
+
     public void zrangeByScore(final byte[] key, final double min,
 	    final double max) {
 
@@ -771,6 +798,11 @@ public class BinaryClient extends Connection {
 	    final byte[] min, final int offset, final int count) {
 	sendCommand(ZREVRANGEBYSCORE, key, max, min, LIMIT.raw,
 		toByteArray(offset), toByteArray(count), WITHSCORES.raw);
+    }
+
+    public void zremrangeByLex(final byte[] key, final byte[] min,
+                               final byte[] max) {
+    sendCommand(ZREMRANGEBYLEX, key, min, max);
     }
 
     public void zremrangeByRank(final byte[] key, final long start,

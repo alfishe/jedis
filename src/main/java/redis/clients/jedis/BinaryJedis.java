@@ -2222,6 +2222,25 @@ public class BinaryJedis implements BasicCommands, BinaryJedisCommands,
 	return client.getIntegerReply();
     }
 
+    public Long zlexcount(final byte[] key, final byte[] min, final byte[] max) {
+    checkIsInMulti();
+    client.zlexcount(key, min, max);
+    return client.getIntegerReply();
+    }
+
+    public Set<byte[]> zrangeByLex(final byte[] key, final byte[] min, final byte[] max) {
+        checkIsInMulti();
+        client.zrangeByLex(key, min, max);
+        return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
+    }
+
+    public Set<byte[]> zrangeByLex(final byte[] key, final byte[] min, final byte[] max,
+                                   final int offset, final int count) {
+        checkIsInMulti();
+        client.zrangeByLex(key, min, max, offset, count);
+        return new LinkedHashSet<byte[]>(client.getBinaryMultiBulkReply());
+    }
+
     /**
      * Return the all the elements in the sorted set at key with a score between
      * min and max (including elements with score equal to min or max).
@@ -2565,6 +2584,12 @@ public class BinaryJedis implements BasicCommands, BinaryJedisCommands,
 	client.zrevrangeByScoreWithScores(key, max, min, offset, count);
 	Set<Tuple> set = getBinaryTupledSet();
 	return set;
+    }
+
+    public Long zremrangeByLex(final byte[] key, final byte[] min, final byte[] max) {
+        checkIsInMulti();
+        client.zremrangeByLex(key, min, max);
+        return client.getIntegerReply();
     }
 
     /**

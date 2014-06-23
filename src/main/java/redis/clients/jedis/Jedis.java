@@ -2021,6 +2021,36 @@ public class Jedis extends BinaryJedis implements JedisCommands,
     }
 
     /**
+     * When all the elements in a sorted set are inserted with the same score,
+     * in order to force lexicographical ordering, this command returns
+     * the number of elements in the sorted set at key with a value between min and max.
+     * The min and max arguments have the same meaning as described for ZRANGEBYLEX.
+     * Note: the command has a complexity of just O(log(N)) because it uses elements
+     * ranks (see ZRANK) to get an idea of the range.
+     * Because of this there is no need to do a work proportional to the size of the range.
+     */
+    public Long zlexcount(final String key, final String min, final String max) {
+    checkIsInMulti();
+    client.zlexcount(key, min, max);
+    return client.getIntegerReply();
+    }
+
+    public Set<String> zrangeByLex(final String key, final String min,
+        final String max) {
+    checkIsInMulti();
+    client.zrangeByLex(key, min, max);
+    return new LinkedHashSet<String>(client.getMultiBulkReply());
+    }
+
+    public Set<String> zrangeByLex(final String key,
+      final String min, final String max, final int offset,
+      final int count) {
+        checkIsInMulti();
+        client.zrangeByLex(key, min, max, offset, count);
+        return new LinkedHashSet<String>(client.getMultiBulkReply());
+    }
+
+    /**
      * Return the all the elements in the sorted set at key with a score between
      * min and max (including elements with score equal to min or max).
      * <p>
@@ -2380,6 +2410,21 @@ public class Jedis extends BinaryJedis implements JedisCommands,
 	client.zrevrangeByScoreWithScores(key, max, min);
 	Set<Tuple> set = getTupledSet();
 	return set;
+    }
+
+    /**
+     * When all the elements in a sorted set are inserted with the same score,
+     * in order to force lexicographical ordering, this command removes all
+     * elements in the sorted set stored at key between the lexicographical range
+     * specified by min and max.
+     * The meaining of min and max are the same of the ZRANGEBYLEX command.
+     * Similarly, this command actually returns the same elements that ZRANGEBYLEX
+     * would return if called with the same min and max arguments.
+     */
+    public Long zremrangeByLex(final String key, final String min, final String max) {
+    checkIsInMulti();
+    client.zremrangeByLex(key, min, max);
+    return client.getIntegerReply();
     }
 
     /**

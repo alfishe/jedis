@@ -380,6 +380,23 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
 	return j.zcount(key, min, max);
     }
 
+    public Long zlexcount(byte[] key, byte[] min, byte[] max) {
+        Jedis j = getShard(key);
+        return j.zlexcount(key, min, max);
+    }
+
+    public Set<byte[]> zrangeByLex(byte[] key, byte[] min, byte[] max) {
+        Jedis j = getShard(key);
+        return j.zrangeByLex(key, min, max);
+    }
+
+    public Set<byte[]> zrangeByLex(byte[] key, byte[] min, byte[] max,
+         int offset, int count)
+    {
+        Jedis j = getShard(key);
+        return j.zrangeByLex(key, min, max, offset, count);
+    }
+
     public Set<byte[]> zrangeByScore(byte[] key, double min, double max) {
 	Jedis j = getShard(key);
 	return j.zrangeByScore(key, min, max);
@@ -468,6 +485,11 @@ public class BinaryShardedJedis extends Sharded<Jedis, JedisShardInfo>
 	    byte[] min, int offset, int count) {
 	Jedis j = getShard(key);
 	return j.zrevrangeByScoreWithScores(key, max, min, offset, count);
+    }
+
+    public Long zremrangeByLex(byte[] key, byte[] min, byte[] max) {
+        Jedis j = getShard(key);
+        return j.zremrangeByLex(key, min, max);
     }
 
     public Long zremrangeByRank(byte[] key, long start, long end) {

@@ -139,7 +139,14 @@ public interface RedisPipeline {
 
     Response<Double> zincrby(String key, double score, String member);
 
+    Response<Long> zlexcount(String key, String min, String max);
+
     Response<Set<String>> zrange(String key, long start, long end);
+
+    Response<Set<String>> zrangeByLex(String key, String min, String max);
+
+    Response<Set<String>> zrangeByLex(String key, String min, String max,
+                                    int offset, int count);
 
     Response<Set<String>> zrangeByScore(String key, double min, double max);
 
@@ -172,6 +179,8 @@ public interface RedisPipeline {
     Response<Long> zrank(String key, String member);
 
     Response<Long> zrem(String key, String... member);
+
+    Response<Long> zremrangeByLex(String key, String min, String max);
 
     Response<Long> zremrangeByRank(String key, long start, long end);
 

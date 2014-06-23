@@ -141,7 +141,14 @@ public interface BinaryRedisPipeline {
 
     Response<Double> zincrby(byte[] key, double score, byte[] member);
 
+    Response<Long> zlexcount(byte[] key, byte[] min, byte[] max);
+
     Response<Set<byte[]>> zrange(byte[] key, long start, long end);
+
+    Response<Set<byte[]>> zrangeByLex(byte[] key, byte[] min, byte[] max);
+
+    Response<Set<byte[]>> zrangeByLex(byte[] key, byte[] min,byte[] max,
+        int offset, int count);
 
     Response<Set<byte[]>> zrangeByScore(byte[] key, double min, double max);
 
@@ -192,6 +199,8 @@ public interface BinaryRedisPipeline {
     Response<Long> zrank(byte[] key, byte[] member);
 
     Response<Long> zrem(byte[] key, byte[]... member);
+
+    Response<Long> zremrangeByLex(byte[] key, byte[] min, byte[] max);
 
     Response<Long> zremrangeByRank(byte[] key, long start, long end);
 

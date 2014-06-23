@@ -716,6 +716,16 @@ abstract class PipelineBase extends Queable implements BinaryRedisPipeline,
 	return getResponse(BuilderFactory.DOUBLE);
     }
 
+    public Response<Long> zlexcount(String key, String min, String max) {
+        getClient(key).zlexcount(key, min, max);
+        return getResponse(BuilderFactory.LONG);
+    }
+
+    public Response<Long> zlexcount(byte[] key, byte[] min, byte[] max) {
+        getClient(key).zlexcount(key, min, max);
+        return getResponse(BuilderFactory.LONG);
+    }
+
     public Response<Set<String>> zrange(String key, long start, long end) {
 	getClient(key).zrange(key, start, end);
 	return getResponse(BuilderFactory.STRING_ZSET);
@@ -724,6 +734,28 @@ abstract class PipelineBase extends Queable implements BinaryRedisPipeline,
     public Response<Set<byte[]>> zrange(byte[] key, long start, long end) {
 	getClient(key).zrange(key, start, end);
 	return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
+    }
+
+    public Response<Set<String>> zrangeByLex(String key, String min, String max) {
+    getClient(key).zrangeByLex(key, min, max);
+    return getResponse(BuilderFactory.STRING_ZSET);
+    }
+
+    public Response<Set<byte[]>> zrangeByLex(byte[] key, byte[] min, byte[] max) {
+        getClient(key).zrangeByLex(key, min, max);
+        return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
+    }
+
+    public Response<Set<String>> zrangeByLex(String key, String min,
+                                               String max, int offset, int count) {
+        getClient(key).zrangeByLex(key, min, max, offset, count);
+        return getResponse(BuilderFactory.STRING_ZSET);
+    }
+
+    public Response<Set<byte[]>> zrangeByLex(byte[] key, byte[] min,
+                                               byte[] max, int offset, int count) {
+        getClient(key).zrangeByLex(key, min, max, offset, count);
+        return getResponse(BuilderFactory.BYTE_ARRAY_ZSET);
     }
 
     public Response<Set<String>> zrangeByScore(String key, double min,
@@ -951,6 +983,16 @@ abstract class PipelineBase extends Queable implements BinaryRedisPipeline,
     public Response<Long> zrem(byte[] key, byte[]... member) {
 	getClient(key).zrem(key, member);
 	return getResponse(BuilderFactory.LONG);
+    }
+
+    public Response<Long> zremrangeByLex(String key, String min, String max) {
+    getClient(key).zremrangeByLex(key, min, max);
+    return getResponse(BuilderFactory.LONG);
+    }
+
+    public Response<Long> zremrangeByLex(byte[] key, byte[] min, byte[] max) {
+    getClient(key).zremrangeByLex(key, min, max);
+    return getResponse(BuilderFactory.LONG);
     }
 
     public Response<Long> zremrangeByRank(String key, long start, long end) {

@@ -426,6 +426,22 @@ public class ShardedJedis extends BinaryShardedJedis implements JedisCommands,
 	return j.zcount(key, min, max);
     }
 
+    public Long zlexcount(String key, String min, String max) {
+        Jedis j = getShard(key);
+        return j.zlexcount(key, min, max);
+    }
+
+    public Set<String> zrangeByLex(String key, String max, String min) {
+        Jedis j = getShard(key);
+        return j.zrangeByLex(key, max, min);
+    }
+
+    public Set<String> zrangeByLex(String key, String max, String min,
+        int offset, int count) {
+        Jedis j = getShard(key);
+        return j.zrangeByLex(key, max, min, offset, count);
+    }
+
     public Set<String> zrangeByScore(String key, double min, double max) {
 	Jedis j = getShard(key);
 	return j.zrangeByScore(key, min, max);
@@ -514,6 +530,11 @@ public class ShardedJedis extends BinaryShardedJedis implements JedisCommands,
 	    String min, int offset, int count) {
 	Jedis j = getShard(key);
 	return j.zrevrangeByScoreWithScores(key, max, min, offset, count);
+    }
+
+    public Long zremrangeByLex(String key, String min, String max) {
+        Jedis j = getShard(key);
+        return j.zremrangeByLex(key, min, max);
     }
 
     public Long zremrangeByRank(String key, long start, long end) {
